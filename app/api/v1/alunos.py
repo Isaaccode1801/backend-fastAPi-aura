@@ -1,22 +1,22 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter()
 
 class Aluno(BaseModel):
     matricula: int
     nome: str
     aura: int = None 
 
-@app.get("/")
+@router.get("/")
 def read_root():
     return {"message": "Fe meu levado"}
 
-@app.get("/alunos/{matricula}")
+@router.get("/alunos/{matricula}")
 def read_aluno(matricula: int, query_param: str = None):
     return {"matricula": matricula, "query_param": query_param}
 
-@app.post("/alunos/")
+@router.post("/alunos/")
 def create_aluno(body: Aluno):
     matricula = body.matricula
     nome = body.nome
@@ -26,10 +26,10 @@ def create_aluno(body: Aluno):
     
     return {"message": f"Aluno {nome} com aura {aura} criado"}
 
-@app.put("/alunos/{matricula}")
+@router.put("/alunos/{matricula}")
 def update_aluno(matricula: int):
     return {"message": "Aluno atualizado"}
 
-@app.delete("alunos/{matricula}")
+@router.delete("alunos/{matricula}")
 def deletar_aluno(matricula: int):
     return {"message": "Aluno deletado"}
