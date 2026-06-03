@@ -6,7 +6,6 @@ router = APIRouter()
 class Aluno(BaseModel):
     matricula: int
     nome: str
-    aura: int = None 
 
 @router.get("/")
 def read_root():
@@ -20,11 +19,11 @@ def read_aluno(matricula: int, query_param: str = None):
 def create_aluno(body: Aluno):
     matricula = body.matricula
     nome = body.nome
-    aura = body.aura
+    aura_inicial = 0
     if nome == "" or matricula == 0:
         return {"message": "Dados invalidos"}
     
-    return {"message": f"Aluno {nome} com aura {aura} criado"}
+    return {"message": f"Aluno {nome} com aura {aura_inicial} criado"}
 
 @router.put("/alunos/{matricula}")
 def update_aluno(matricula: int):
