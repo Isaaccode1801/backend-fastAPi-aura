@@ -1,6 +1,7 @@
 # funções do banco de dados para Alunos
 from sqlalchemy.orm import Session
 from app.models.aluno import Aluno
+from app.schemas.aluno import AlunoCreate  
 
 # buscar um aluno específico pelo ID
 def obter_aluno(db: Session, aluno_id: int):
@@ -27,3 +28,16 @@ def deletar_aluno(db: Session, aluno_id: int):
         db.commit()
         return True
     return False
+
+# criar um novo aluno no banco de dados
+def criar_aluno(db: Session, aluno: AlunoCreate):
+    db_aluno = Aluno(
+        nome=aluno.nome, 
+        matricula=aluno.matricula,
+        aura=0.0  
+    )
+
+    db.add(db_aluno)
+    db.commit()
+    db.refresh(db_aluno)
+    return db_aluno
