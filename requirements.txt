@@ -1,3 +1,5 @@
+#comando para baixar as dependecias: 
+# pip install -r requirements.txt
 fastapi
 uvicorn
 pydantic
