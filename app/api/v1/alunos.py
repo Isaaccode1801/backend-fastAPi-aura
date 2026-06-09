@@ -1,34 +1,33 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
+from typing import List
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+
+from app.crud import crud_aluno
+from app.db.session import obter_db
+from app.schemas.aluno import AlunoCreate, AlunoResponse
 
 router = APIRouter()
 
-class Aluno(BaseModel):
-    matricula: int
-    nome: str
 
-@router.get("/")
-def read_root():
-    return {"message": "Fe meu levado"}
+@router.get("/", response_model=List[AlunoResponse])
+def listar_alunos(db: Session = Depends(obter_db)):
+    return crud_aluno.obter_alunos(db)
 
-@router.get("/alunos/{matricula}")
-def read_aluno(matricula: int, query_param: str = None):
-    return {"matricula": matricula, "query_param": query_param}
 
-@router.post("/alunos/")
-def create_aluno(body: Aluno):
-    matricula = body.matricula
-    nome = body.nome
-    aura_inicial = 0
-    if nome == "" or matricula == 0:
-        return {"message": "Dados invalidos"}
-    
-    return {"message": f"Aluno {nome} com aura {aura_inicial} criado"}
+@router.get("/{aluno_id}", response_model=AlunoResponse)
+def buscar_aluno(aluno_id: int, db: Session = Depends(obter_db)):
+    aluno = crud_aluno.obter_aluno(db, aluno_id)
+    if not aluno:
+        raise HTTPException(status_code=404, detail="Aluno não encontrado")
+    return aluno
 
-@router.put("/alunos/{matricula}")
-def update_aluno(matricula: int):
-    return {"message": "Aluno atualizado"}
 
-@router.delete("alunos/{matricula}")
-def deletar_aluno(matricula: int):
-    return {"message": "Aluno deletado"}
+@router.post("/", response_model=AlunoResponse, status_code=status.HTTP_201_CREATED)
+def cadastrar_aluno(form: AlunoCreate, db: Session = Depends(obter_db)):
+    return crud_aluno.criar_aluno(
+        db=db,
+        matricula=form.matricula,
+        nome=form.nome,
+        aura=form.aura,
+    )

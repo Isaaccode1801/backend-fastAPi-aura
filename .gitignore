@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+venv/
+.venv/
+node_modules/
+frontend/dist/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.db
+
+# macOS
+.DS_Store
+**/.DS_Store

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Nunito Sans", "Lato", sans-serif;
+
+  --color-coesi-red: #ed3237;
+  --color-coesi-red-hover: #c92327;
+  --color-coesi-blue: #002566;
+  --color-coesi-blue-dark: #001f55;
+  --color-coesi-blue-mid: #122e7d;
+  --color-coesi-blue-soft: #194598;
+  --color-coesi-cyan: #27aae0;
+  --color-coesi-footer: #081c57;
+  --color-coesi-footer-copy: #081848;
+  --color-coesi-muted: #828282;
+  --color-coesi-muted-light: #a5b6d6;
+  --color-coesi-surface: #fafafa;
+  --color-coesi-nav: #eeeeee;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 35px;
+
+  --color-background: var(--color-coesi-surface);
+  --color-foreground: var(--color-coesi-blue);
+  --color-primary: var(--color-coesi-red);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--color-coesi-blue);
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #eff3f6;
+  --color-muted-foreground: var(--color-coesi-muted);
+  --color-accent: var(--color-coesi-cyan);
+  --color-accent-foreground: #ffffff;
+  --color-border: #dddddd;
+  --color-input: #dddddd;
+  --color-ring: var(--color-coesi-cyan);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-coesi-blue);
+  --color-destructive: var(--color-coesi-red);
+  --color-destructive-foreground: #ffffff;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-semibold tracking-tight text-coesi-blue;
+  }
+}
+
+@layer utilities {
+  .container-app {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+
+  .section-gradient {
+    background: linear-gradient(180deg, var(--color-coesi-blue) 0%, var(--color-coesi-blue-dark) 100%);
+  }
+}
