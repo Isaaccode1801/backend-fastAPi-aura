@@ -7,6 +7,7 @@ const LOGO_COESI =
 
 const links = [
   { to: "/", label: "Início", end: true },
+  { to: "/salas", label: "Salas" },
   { to: "/alunos", label: "Alunos" },
   { to: "/avaliacoes", label: "Avaliações" },
 ] as const;

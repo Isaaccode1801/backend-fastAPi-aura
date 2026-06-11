@@ -27,12 +27,12 @@ export function AvaliacaoList({
               key={av.id}
               className={cn(
                 "grid grid-cols-[auto_1fr] gap-3 rounded-md bg-muted p-4",
-                av.nota >= 0 ? "border-l-4 border-coesi-cyan" : "border-l-4 border-coesi-red"
+                av.aura >= 0 ? "border-l-4 border-coesi-cyan" : "border-l-4 border-coesi-red"
               )}
             >
               <div className="flex size-12 items-center justify-center rounded-md bg-white text-sm font-bold text-coesi-blue">
-                {av.nota > 0 ? "+" : ""}
-                {av.nota}
+                {av.aura > 0 ? "+" : ""}
+                {av.aura}
               </div>
               <div>
                 <strong className="text-sm">{av.professor}</strong>

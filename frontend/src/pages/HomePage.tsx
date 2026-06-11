@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { AuraBar } from "@/components/shared/AuraBar";
+import { formatarAuraDiscreta, getAuraLevel } from "@/lib/aura";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -67,8 +68,25 @@ export function HomePage() {
               )}
             </CardHeader>
             {!carregando && !erro ? (
-              <CardContent>
+              <CardContent className="space-y-3">
+                <span
+                  className="inline-flex items-center rounded-sm px-2.5 py-1 text-xs font-bold uppercase tracking-wide"
+                  style={
+                    getAuraLevel(resumo.mediaAura).gradiente
+                      ? {
+                          background: getAuraLevel(resumo.mediaAura).corFundo,
+                          color: getAuraLevel(resumo.mediaAura).corTexto,
+                        }
+                      : {
+                          backgroundColor: getAuraLevel(resumo.mediaAura).corFundo,
+                          color: getAuraLevel(resumo.mediaAura).corTexto,
+                        }
+                  }
+                >
+                  {getAuraLevel(resumo.mediaAura).nome}
+                </span>
                 <AuraBar aura={resumo.mediaAura} />
+                <p className="text-sm text-muted-foreground">{formatarAuraDiscreta(resumo.mediaAura)}</p>
               </CardContent>
             ) : null}
           </Card>

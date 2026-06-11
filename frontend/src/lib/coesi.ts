@@ -1,0 +1,20 @@
+/** Paleta institucional COESI — referência única para cores da marca. */
+export const COESI = {
+  blue: "#002566",
+  blueDark: "#001f55",
+  blueMid: "#122e7d",
+  blueSoft: "#194598",
+  cyan: "#27aae0",
+  red: "#ed3237",
+  redHover: "#c92327",
+  muted: "#828282",
+  mutedLight: "#a5b6d6",
+  surface: "#fafafa",
+  nav: "#eeeeee",
+  white: "#ffffff",
+  border: "#dddddd",
+  blueTint: "#e8eef8",
+  cyanTint: "#e8f7fd",
+  redTint: "#fde8e9",
+  navyTint: "#dfe6f3",
+} as const;

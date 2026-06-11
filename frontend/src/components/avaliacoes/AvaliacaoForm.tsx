@@ -14,12 +14,36 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
+const AURA_MIN = -1000;
+const AURA_MAX = 1000;
+
 type AvaliacaoFormProps = {
   alunos: Aluno[];
   alunoIdInicial?: number;
   onSuccess: (alunoId: number) => void;
   onAlunoChange?: (alunoId: number) => void;
 };
+
+function validarAura(valor: string): string | null {
+  if (valor.trim() === "") {
+    return "O campo Aura é obrigatório";
+  }
+
+  const numero = Number(valor);
+  if (Number.isNaN(numero)) {
+    return "O campo Aura é obrigatório";
+  }
+
+  if (numero > AURA_MAX) {
+    return "A aura não pode ser maior que 1000";
+  }
+
+  if (numero < AURA_MIN) {
+    return "A aura não pode ser menor que -1000";
+  }
+
+  return null;
+}
 
 export function AvaliacaoForm({
   alunos,
@@ -29,7 +53,7 @@ export function AvaliacaoForm({
 }: AvaliacaoFormProps) {
   const [alunoId, setAlunoId] = useState(String(alunoIdInicial ?? alunos[0]?.id ?? ""));
   const [professor, setProfessor] = useState("");
-  const [nota, setNota] = useState("");
+  const [aura, setAura] = useState("");
   const [comentario, setComentario] = useState("");
   const [mensagem, setMensagem] = useState<{ tipo: "sucesso" | "erro"; texto: string } | null>(
     null
@@ -39,6 +63,13 @@ export function AvaliacaoForm({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMensagem(null);
+
+    const erroAura = validarAura(aura);
+    if (erroAura) {
+      setMensagem({ tipo: "erro", texto: erroAura });
+      return;
+    }
+
     setEnviando(true);
 
     try {
@@ -46,12 +77,12 @@ export function AvaliacaoForm({
       await criarAvaliacao({
         aluno_id: id,
         professor,
-        nota: Number(nota),
+        aura: Number(aura),
         comentario: comentario.trim() || null,
       });
 
       setMensagem({ tipo: "sucesso", texto: "Avaliação registrada com sucesso." });
-      setNota("");
+      setAura("");
       setComentario("");
       onSuccess(id);
     } catch {
@@ -100,15 +131,16 @@ export function AvaliacaoForm({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="nota">Nota</Label>
+        <Label htmlFor="aura">Aura</Label>
         <Input
-          id="nota"
+          id="aura"
           type="number"
-          step="0.5"
-          value={nota}
-          onChange={(e) => setNota(e.target.value)}
-          placeholder="Ex: 3 ou -2"
-          required
+          min={AURA_MIN}
+          max={AURA_MAX}
+          step={1}
+          value={aura}
+          onChange={(e) => setAura(e.target.value)}
+          placeholder="Ex: 100 ou -200"
         />
       </div>
 
