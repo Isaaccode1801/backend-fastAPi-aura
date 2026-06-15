@@ -18,9 +18,6 @@ from app.schemas import (
     SalaResponse,
 )
 
-AURA_MINIMA = -10.0
-AURA_MAXIMA = 10.0
-
 SALAS_INICIAIS = [
     {"nome": "MAURÍCIO DE SOUSA", "ano": "6 ANO"},
     {"nome": "ADA AUGUSTA", "ano": "6 ANO"},
@@ -46,18 +43,17 @@ NIVEIS = ("Crítico", "Baixo", "Médio", "Alto", "Lendário")
 
 
 def calcular_nova_aura(aura_atual: float, delta: float) -> float:
-    return max(AURA_MINIMA, min(aura_atual + delta, AURA_MAXIMA))
+    return aura_atual + delta
 
 
 def nivel_da_aura(valor: float) -> str:
-    v = max(AURA_MINIMA, min(valor, AURA_MAXIMA))
-    if v >= 7:
+    if valor >= 700:
         return "Lendário"
-    if v >= 3:
+    if valor >= 300:
         return "Alto"
-    if v >= 0:
+    if valor >= 0:
         return "Médio"
-    if v >= -5:
+    if valor >= -500:
         return "Baixo"
     return "Crítico"
 

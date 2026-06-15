@@ -1,10 +1,7 @@
 import { Card } from "@/components/ui/card";
-import { formatarSala, corNivelSala } from "@/lib/aura";
+import { AURA_MAX, AURA_MIN, formatarSala, corNivelSala } from "@/lib/aura";
 import { COESI } from "@/lib/coesi";
 import type { Sala } from "@/types";
-
-const AURA_MIN = -10;
-const AURA_MAX = 10;
 
 function alturaBarra(media: number): number {
   const pct = ((media - AURA_MIN) / (AURA_MAX - AURA_MIN)) * 100;

@@ -20,7 +20,7 @@ export function auraParaPercentual(aura: number): number {
 }
 
 export function getAuraLevel(aura: number): NivelAura {
-  const valor = limitarAura(aura);
+  const valor = aura;
 
   if (valor >= 700) {
     return {
@@ -67,9 +67,8 @@ export function getAuraLevel(aura: number): NivelAura {
 export const nivelAura = getAuraLevel;
 
 export function formatarAuraDiscreta(aura: number): string {
-  const valor = limitarAura(aura);
-  if (valor > 0) return `+${valor} aura`;
-  if (valor < 0) return `−${Math.abs(valor)} aura`;
+  if (aura > 0) return `+${aura} aura`;
+  if (aura < 0) return `−${Math.abs(aura)} aura`;
   return "0 aura";
 }
 
@@ -96,8 +95,7 @@ export function corNivelSala(nivel: string): string {
 }
 
 export function corPontuacaoAura(aura: number): string {
-  const valor = limitarAura(aura);
-  if (valor > 0) return COESI.blueSoft;
-  if (valor < 0) return COESI.red;
+  if (aura > 0) return COESI.blueSoft;
+  if (aura < 0) return COESI.red;
   return COESI.muted;
 }

@@ -37,7 +37,7 @@ class ResumoComportamental(BaseModel):
 class AlunoCreate(BaseModel):
     matricula: str
     nome: str
-    aura: float = Field(default=0.0, ge=-10, le=10)
+    aura: float = Field(default=0.0)
     sala_id: Optional[int] = None
 
 
